@@ -115,6 +115,7 @@ spec:
         service.istio.io/canonical-name: cluster-local-gateway
         service.istio.io/canonical-revision: "1.5"
     spec:
+      serviceAccountName: cluster-local-gateway-service-account
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -233,6 +234,8 @@ spec:
           value: sni-dnat
         - name: ISTIO_META_CLUSTER_ID
           value: Kubernetes
+        - name: SDS_ENABLED
+          value: "false"
         image: docker.io/istio/proxyv2:1.5.0
         imagePullPolicy: IfNotPresent
         name: istio-proxy
@@ -262,49 +265,25 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         volumeMounts:
-        - mountPath: /var/run/secrets/istio
-          name: istiod-ca-cert
-        - mountPath: /var/run/secrets/tokens
-          name: istio-token
+        - name: istio-certs
+          mountPath: /etc/certs
           readOnly: true
-        - mountPath: /var/run/ingress_gateway
-          name: clusterlocalgatewaysdsudspath
-        - mountPath: /etc/istio/pod
-          name: podinfo
-        - mountPath: /etc/istio/clusterlocalgateway-certs
-          name: clusterlocalgateway-certs
+        - name: clusterlocalgateway-certs
+          mountPath: "/etc/istio/clusterlocalgateway-certs"
           readOnly: true
-        - mountPath: /etc/istio/clusterlocalgateway-ca-certs
-          name: clusterlocalgateway-ca-certs
+        - name: clusterlocalgateway-ca-certs
+          mountPath: "/etc/istio/clusterlocalgateway-ca-certs"
           readOnly: true
-      serviceAccountName: cluster-local-gateway-service-account
-      volumes:
-      - configMap:
-          name: istio-ca-root-cert
-        name: istiod-ca-cert
-      - downwardAPI:
-          items:
-          - fieldRef:
-              fieldPath: metadata.labels
-            path: labels
-          - fieldRef:
-              fieldPath: metadata.annotations
-            path: annotations
-        name: podinfo
-      - emptyDir: {}
-        name: clusterlocalgatewaysdsudspath
-      - name: istio-token
-        projected:
-          sources:
-          - serviceAccountToken:
-              audience: istio-ca
-              expirationSeconds: 43200
-              path: istio-token
-      - name: clusterlocalgateway-certs
-        secret:
-          optional: true
-          secretName: istio-clusterlocalgateway-certs
-      - name: clusterlocalgateway-ca-certs
-        secret:
-          optional: true
-          secretName: istio-clusterlocalgateway-ca-certs
+    volumes:
+    - name: istio-certs
+      secret:
+        secretName: istio.cluster-local-gateway-service-account
+        optional: true
+    - name: clusterlocalgateway-certs
+      secret:
+        secretName: "istio-clusterlocalgateway-certs"
+        optional: true
+    - name: clusterlocalgateway-ca-certs
+      secret:
+        secretName: "istio-clusterlocalgateway-ca-certs"
+        optional: true
