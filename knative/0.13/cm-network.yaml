@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-network
+  namespace: knative-serving
+  labels:
+    serving.knative.dev/release: "v0.13.0"
+data:
+    autoTLS: "Disabled"
+
+    httpProtocol: "Enabled"
