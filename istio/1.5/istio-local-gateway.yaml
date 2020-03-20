@@ -274,16 +274,16 @@ spec:
         - name: clusterlocalgateway-ca-certs
           mountPath: "/etc/istio/clusterlocalgateway-ca-certs"
           readOnly: true
-    volumes:
-    - name: istio-certs
-      secret:
-        secretName: istio.cluster-local-gateway-service-account
-        optional: true
-    - name: clusterlocalgateway-certs
-      secret:
-        secretName: "istio-clusterlocalgateway-certs"
-        optional: true
-    - name: clusterlocalgateway-ca-certs
-      secret:
-        secretName: "istio-clusterlocalgateway-ca-certs"
-        optional: true
+      volumes:
+      - name: istio-certs
+        secret:
+          secretName: istio.cluster-local-gateway-service-account
+          optional: true
+      - name: clusterlocalgateway-certs
+        secret:
+          secretName: "istio-clusterlocalgateway-certs"
+          optional: true
+      - name: clusterlocalgateway-ca-certs
+        secret:
+          secretName: "istio-clusterlocalgateway-ca-certs"
+          optional: true
