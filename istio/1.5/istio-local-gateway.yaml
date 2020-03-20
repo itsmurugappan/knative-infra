@@ -277,7 +277,7 @@ spec:
         - mountPath: /etc/istio/clusterlocalgateway-ca-certs
           name: clusterlocalgateway-ca-certs
           readOnly: true
-      serviceAccountName: istio-clusterlocalgateway-service-account
+      serviceAccountName: cluster-local-gateway-service-account
       volumes:
       - configMap:
           name: istio-ca-root-cert
