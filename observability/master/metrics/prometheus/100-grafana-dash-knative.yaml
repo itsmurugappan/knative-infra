@@ -968,7 +968,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\"}[1m])) by (container)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\", container != \"\"}[1m])) by (container)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{container}}",
@@ -1048,7 +1048,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\"}) by (container)",
+              "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\", container != \"\"}) by (container)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{container}}",
