@@ -10718,6 +10718,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: endpoints
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -10742,6 +10744,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10761,6 +10765,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10780,6 +10786,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       honor_labels: true
       kubernetes_sd_configs:
       - role: endpoints
@@ -10800,6 +10808,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10827,6 +10837,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: node
       relabel_configs:
@@ -10857,6 +10869,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: node
       relabel_configs:
@@ -10873,6 +10887,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       kubernetes_sd_configs:
       - role: endpoints
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -10913,6 +10929,8 @@ data:
       metric_relabel_configs:
       - source_labels: [container]
         target_label: container_name
+      - source_labels: [pod]
+        target_label: pod_name
       relabel_configs:
       - action: keep
         regex: true
