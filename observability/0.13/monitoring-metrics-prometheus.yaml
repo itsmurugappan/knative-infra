@@ -255,7 +255,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$deployment_namespace\",pod=~\"$deployment_name.*\"}[3m]))",
+                  "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m]))",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -326,7 +326,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(container_memory_usage_bytes{namespace=\"$deployment_namespace\",pod=~\"$deployment_name.*\"}) / 1024^3",
+                  "expr": "sum(container_memory_usage_bytes{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}) / 1024^3",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -397,7 +397,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"$deployment_namespace\",pod=~\"$deployment_name.*\"}[3m])) + sum(rate(container_network_receive_bytes_total{namespace=\"$deployment_namespace\",pod=~\"$deployment_name.*\"}[3m]))",
+                  "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m])) + sum(rate(container_network_receive_bytes_total{namespace=\"$deployment_namespace\",pod_name=~\"$deployment_name.*\"}[3m]))",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -5369,10 +5369,10 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sum by(container) (container_memory_usage_bytes{pod=\"$pod\", container=~\"$container\", container!=\"POD\"})",
+                  "expr": "sum by(container_name) (container_memory_usage_bytes{pod_name=\"$pod\", container_name=~\"$container\", container_name!=\"POD\"})",
                   "interval": "10s",
                   "intervalFactor": 1,
-                  "legendFormat": "Current: {{ container }}",
+                  "legendFormat": "Current: {{ container_name }}",
                   "metric": "container_memory_usage_bytes",
                   "refId": "A",
                   "step": 15
@@ -5475,9 +5475,9 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sum by (container)(rate(container_cpu_usage_seconds_total{image!=\"\",container!=\"POD\",pod=\"$pod\"}[1m]))",
+                  "expr": "sum by (container_name)(rate(container_cpu_usage_seconds_total{image!=\"\",container_name!=\"POD\",pod_name=\"$pod\"}[1m]))",
                   "intervalFactor": 2,
-                  "legendFormat": "{{ container }}",
+                  "legendFormat": "{{ container_name }}",
                   "refId": "A",
                   "step": 30
                 },
@@ -5579,9 +5579,9 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sort_desc(sum by (pod) (rate(container_network_receive_bytes_total{pod=\"$pod\"}[1m])))",
+                  "expr": "sort_desc(sum by (pod_name) (rate(container_network_receive_bytes_total{pod_name=\"$pod\"}[1m])))",
                   "intervalFactor": 2,
-                  "legendFormat": "{{ pod }}",
+                  "legendFormat": "{{ pod_name }}",
                   "refId": "A",
                   "step": 30
                 }
@@ -5805,7 +5805,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$statefulset_namespace\",pod=~\"$statefulset_name.*\"}[3m]))",
+                  "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$statefulset_namespace\",pod_name=~\"$statefulset_name.*\"}[3m]))",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -5876,7 +5876,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(container_memory_usage_bytes{namespace=\"$statefulset_namespace\",pod=~\"$statefulset_name.*\"}) / 1024^3",
+                  "expr": "sum(container_memory_usage_bytes{namespace=\"$statefulset_namespace\",pod_name=~\"$statefulset_name.*\"}) / 1024^3",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -5947,7 +5947,7 @@ data:
               },
               "targets": [
                 {
-                  "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"$statefulset_namespace\",pod=~\"$statefulset_name.*\"}[3m])) + sum(rate(container_network_receive_bytes_total{namespace=\"$statefulset_namespace\",pod=~\"$statefulset_name.*\"}[3m]))",
+                  "expr": "sum(rate(container_network_transmit_bytes_total{namespace=\"$statefulset_namespace\",pod_name=~\"$statefulset_name.*\"}[3m])) + sum(rate(container_network_receive_bytes_total{namespace=\"$statefulset_namespace\",pod_name=~\"$statefulset_name.*\"}[3m]))",
                   "intervalFactor": 2,
                   "refId": "A",
                   "step": 600
@@ -8080,7 +8080,7 @@ data:
                    "refId": "A"
                    },
                    {
-                   "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$revision-deployment-.*\", container=\"\"}[1m]))",
+                   "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod_name=~\"$revision-deployment-.*\", container=\"\"}[1m]))",
                    "format": "time_series",
                    "intervalFactor": 1,
                    "legendFormat": "Cores used",
@@ -8176,7 +8176,7 @@ data:
                    "refId": "A"
                    },
                    {
-                   "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$revision-deployment-.*\"})",
+                   "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod_name=~\"$revision-deployment-.*\"})",
                    "format": "time_series",
                    "hide": false,
                    "intervalFactor": 1,
@@ -10001,10 +10001,10 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\"}[1m])) by (container)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod_name=~\"$revision.*\", container_name != \"POD\"}[1m])) by (container_name)",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{container}}",
+              "legendFormat": "{{container_name}}",
               "refId": "A"
             }
           ],
@@ -10081,10 +10081,10 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$revision.*\", container != \"POD\"}) by (container)",
+              "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod_name=~\"$revision.*\", container_name != \"POD\"}) by (container_name)",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{container}}",
+              "legendFormat": "{{container_name}}",
               "refId": "A"
             }
           ],
@@ -10358,7 +10358,7 @@ metadata:
     app: grafana
     serving.knative.dev/release: "v0.13.0"
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 30802
     protocol: TCP
@@ -10534,7 +10534,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10552,7 +10552,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10570,7 +10570,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10588,7 +10588,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10606,7 +10606,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10622,7 +10622,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10639,7 +10639,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10657,7 +10657,7 @@ data:
     #   # Rename metadata labels to be reader friendly
     #   - source_labels: [__meta_kubernetes_namespace]
     #     target_label: namespace
-    #   - source_labels: [__meta_kubernetes_pod]
+    #   - source_labels: [__meta_kubernetes_pod_name]
     #     target_label: pod
     #   - source_labels: [__meta_kubernetes_service_name]
     #     target_label: service
@@ -10674,7 +10674,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10691,7 +10691,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10708,7 +10708,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10730,7 +10730,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10746,7 +10746,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10762,7 +10762,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10779,7 +10779,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10795,7 +10795,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10862,7 +10862,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -10878,7 +10878,7 @@ data:
       # Rename metadata labels to be reader friendly
       - source_labels: [__meta_kubernetes_namespace]
         target_label: namespace
-      - source_labels: [__meta_kubernetes_pod]
+      - source_labels: [__meta_kubernetes_pod_name]
         target_label: pod
       - source_labels: [__meta_kubernetes_service_name]
         target_label: service
@@ -11173,7 +11173,7 @@ metadata:
   labels:
     serving.knative.dev/release: "v0.13.0"
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: prometheus
   ports:
