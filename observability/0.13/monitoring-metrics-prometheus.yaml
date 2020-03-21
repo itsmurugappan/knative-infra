@@ -10560,9 +10560,6 @@ data:
     - job_name: activator
       scrape_interval: 3s
       scrape_timeout: 3s
-      metric_relabel_configs:
-      - source_labels: [container_name]
-        target_label: container
       kubernetes_sd_configs:
       - role: pod
       relabel_configs:
@@ -10718,6 +10715,9 @@ data:
     # Kube API server
     - job_name: kube-apiserver
       scheme: https
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: endpoints
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -10739,6 +10739,9 @@ data:
         target_label: service
     # Kube controller manager
     - job_name: kube-controller-manager
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10755,6 +10758,9 @@ data:
         target_label: service
     # Kube scheduler
     - job_name: kube-scheduler
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10771,6 +10777,9 @@ data:
         target_label: service
     # Kube state metrics on https-main port
     - job_name: kube-state-metrics-http-metrics
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       honor_labels: true
       kubernetes_sd_configs:
       - role: endpoints
@@ -10788,6 +10797,9 @@ data:
         target_label: service
     # Kube state metrics on https-self port
     - job_name: kube-state-metrics-telemetry
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: endpoints
       relabel_configs:
@@ -10812,6 +10824,9 @@ data:
       tls_config:
         ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: node
       relabel_configs:
@@ -10839,6 +10854,9 @@ data:
       tls_config:
         ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: node
       relabel_configs:
@@ -10852,6 +10870,9 @@ data:
     # Node exporter
     - job_name: node-exporter
       scheme: https
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       kubernetes_sd_configs:
       - role: endpoints
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -10889,6 +10910,9 @@ data:
     - job_name: kubernetes-service-endpoints
       kubernetes_sd_configs:
       - role: endpoints
+      metric_relabel_configs:
+      - source_labels: [container]
+        target_label: container_name
       relabel_configs:
       - action: keep
         regex: true
