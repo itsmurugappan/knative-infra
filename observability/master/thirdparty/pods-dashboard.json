@@ -73,7 +73,7 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sum by(container) (container_memory_usage_bytes{pod=\"$pod\", container=~\"$container\", container!=\"POD\",container!=\"\"})",
+                  "expr": "sum by(container) (container_memory_usage_bytes{pod=\"$pod\", container=~\"$container\", container!=\"POD\", container!=\"\"})",
                   "interval": "10s",
                   "intervalFactor": 1,
                   "legendFormat": "Current: {{ container }}",
@@ -179,7 +179,7 @@ data:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sum by (container)(rate(container_cpu_usage_seconds_total{image!=\"\",container!=\"POD\",container!=\"\",pod=\"$pod\"}[1m]))",
+                  "expr": "sum by (container)(rate(container_cpu_usage_seconds_total{image!=\"\",container!=\"POD\", container!=\"\",pod=\"$pod\"}[1m]))",
                   "intervalFactor": 2,
                   "legendFormat": "{{ container }}",
                   "refId": "A",
