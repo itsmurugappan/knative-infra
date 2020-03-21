@@ -353,6 +353,13 @@ data:
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
       kubernetes_sd_configs:
       - role: node
+      metric_relabel_configs:
+      - source_labels: [container_name]
+        action: replace
+        target_label: container
+        action: replace
+      - source_labels: [pod_name]
+        target_label: pod
       relabel_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
@@ -380,6 +387,13 @@ data:
       bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
       kubernetes_sd_configs:
       - role: node
+      metric_relabel_configs:
+      - source_labels: [container_name]
+        action: replace
+        target_label: container
+        action: replace
+      - source_labels: [pod_name]
+        target_label: pod
       relabel_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
@@ -442,6 +456,13 @@ data:
     - job_name: kubernetes-service-endpoints
       kubernetes_sd_configs:
       - role: endpoints
+      metric_relabel_configs:
+      - source_labels: [container_name]
+        action: replace
+        target_label: container
+        action: replace
+      - source_labels: [pod_name]
+        target_label: pod
       relabel_configs:
       - action: keep
         regex: true
