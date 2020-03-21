@@ -314,7 +314,7 @@ metadata:
     app: prometheus
     release: istio
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: prometheus
@@ -348,7 +348,7 @@ spec:
           resources:
             requests:
               cpu: 10m
-            
+
           volumeMounts:
           - name: config-volume
             mountPath: /etc/prometheus
@@ -475,7 +475,7 @@ spec:
           defaultMode: 420
           name: istio-ca-root-cert
 
-      affinity:      
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -6510,13 +6510,6 @@ spec:
           periodSeconds: 2
           successThreshold: 1
           timeoutSeconds: 1
-        resources:
-          limits:
-            cpu: 2000m
-            memory: 1024Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
         volumeMounts:
         - mountPath: /var/run/secrets/istio
           name: istiod-ca-cert
@@ -6597,7 +6590,7 @@ metadata:
   labels:
     app: istio-ingressgateway
     istio: ingressgateway
-    
+
     release: istio
 spec:
   minAvailable: 1
@@ -6605,7 +6598,7 @@ spec:
     matchLabels:
       app: istio-ingressgateway
       istio: ingressgateway
-      
+
       release: istio
 ---
 
@@ -6650,14 +6643,14 @@ metadata:
   labels:
     app: istio-ingressgateway
     istio: ingressgateway
-    
+
     release: istio
 spec:
   type: LoadBalancer
   selector:
     app: istio-ingressgateway
     istio: ingressgateway
-    
+
   ports:
     -
       name: status-port
@@ -6701,7 +6694,7 @@ metadata:
   labels:
     app: istio-ingressgateway
     istio: ingressgateway
-    
+
     release: istio
 ---
 
@@ -7182,10 +7175,6 @@ data:
     policy:
       enabled: false
     replicaCount: 1
-    resources:
-      requests:
-        cpu: 500m
-        memory: 2048Mi
     rollingMaxSurge: 100%
     rollingMaxUnavailable: 25%
     tag: ""
@@ -7421,10 +7410,6 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 5
-        resources:
-          requests:
-            cpu: 500m
-            memory: 2048Mi
         securityContext:
           capabilities:
             drop:
@@ -7705,9 +7690,9 @@ data:
 
     # Configmap optimized for Istiod. Please DO NOT MERGE all changes from istio - in particular those dependent on
     # Values.yaml, which should not be used by istiod.
-    
+
     # Istiod only uses SDS based config ( files will mapped/handled by SDS).
-    
+
     template: |
       rewriteAppHTTPProbe: {{ valueOrDefault .Values.sidecarInjectorWebhook.rewriteAppHTTPProbe false }}
       initContainers:
