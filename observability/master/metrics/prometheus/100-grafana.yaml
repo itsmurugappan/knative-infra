@@ -127,7 +127,7 @@ metadata:
     app: grafana
     serving.knative.dev/release: devel
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 30802
     protocol: TCP
@@ -196,7 +196,7 @@ spec:
         - name: grafana-dashboard-definition-kubernetes-statefulset
           mountPath: /grafana-dashboard-definition/kubernetes-statefulset
         - name: scaling-config
-          mountPath: /grafana-dashboard-definition/scaling  
+          mountPath: /grafana-dashboard-definition/scaling
         ports:
         - name: web
           containerPort: 3000

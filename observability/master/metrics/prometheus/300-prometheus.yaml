@@ -227,7 +227,7 @@ metadata:
   labels:
     serving.knative.dev/release: devel
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: prometheus
   ports:
